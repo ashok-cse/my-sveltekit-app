@@ -78,7 +78,7 @@ function cleaQuestion() {
 	<table>
 		<thead>
 			<tr class="divide-x">
-				<th class="p-3">#</th><th class="p-3">questions</th><th class="p-3">options</th>
+				<th class="p-3">#</th><th class="p-3">questions</th><th class="p-3">options</th> <th class="p-3">explain</th>
 			</tr>
 		</thead>
 		<tbody>
