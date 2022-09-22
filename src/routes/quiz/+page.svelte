@@ -58,11 +58,9 @@
     let newquestion = [...question];
 
     function addQuestion() {
-       demoquestion.forEach((item) => {
-          newquestion.push(item);
-       });
+        newquestion = [...newquestion, ...demoquestion];
+        newquestion = question
     }
-
 
 </script>
 
