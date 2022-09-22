@@ -86,7 +86,7 @@
         <input type="text" bind:value="{question[0].explain}">
         <br/>
 
-        <button type="submit" on:click="{onFormSubmit}">Submit</button>
+        <button type="submit">Submit</button>
     </form>
 
     <table>
