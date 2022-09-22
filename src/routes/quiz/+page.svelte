@@ -8,7 +8,8 @@
 let questions = []
 let question = {
 	label: '',
-	options: []
+	options: [],
+    explain: ''
 }
 let option = { value: '', isCorrect: false }
 function addNewOption() {
@@ -53,6 +54,11 @@ function cleaQuestion() {
 				<input type="checkbox" bind:checked="{option.isCorrect}" class="h-6 w-6" />
 			</div>
 		</label>
+        <label for="Explain">
+            <h2 class="mb-2 font-semibold text-white">Explain</h2>
+            <textarea id="Explain" type="text" bind:value="{question.explain}"/>
+            
+        </label>
 		<button
 			type="submit"
 			class="max-w-max bg-white px-2 py-1 focus:outline-none"
@@ -91,6 +97,7 @@ function cleaQuestion() {
 							{/each}
 						</ul>
 					</td>
+                    <td>{q.explain}</td>
 				</tr>
 			{/each}
 		</tbody>
