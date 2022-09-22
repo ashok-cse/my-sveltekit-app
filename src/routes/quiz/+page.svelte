@@ -58,8 +58,8 @@
     let newquestion = [...question];
    
     function onFormSubmit() {
-          demoquestion = [...newquestion];
-           newquestion = question
+        newquestion = [...question];
+        console.log(newquestion);
     }
 
 
