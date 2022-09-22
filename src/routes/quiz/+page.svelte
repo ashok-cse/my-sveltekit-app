@@ -4,111 +4,97 @@
 	<meta name="description" content=" Quiz Panel app" />
 </svelte:head>
 <script>
-  import Counter from "../../lib/Counter.svelte";
 
-
-    let question = [
-        {
-          value: "",
-            options: [
-                 {
-                    value: "",
-                 },
-                 {
-                    value: "",
-                 },
-                 {
-                    value: "",
-                 },
-                 {
-                    value: "",
-                 }
-                ],
-            answer: "",
-            correct: "",
-            explain: "",
-        },
-    ];
-
-
-
-    let demoquestion = [
-        {
-          value: "What is the capital of India?",
-            options: [
-                 {
-                    value: "Delhi",
-                 },
-                 {
-                    value: "Mumbai",
-                 },
-                 {
-                    value: "Kolkata",
-                 },
-                 {
-                    value: "Chennai",
-                 }
-                ],
-            answer: "Delhi",
-            correct: "Delhi",
-            explain: "Delhi is the capital of India",
-        },
-    ];
-   
-    let newquestion = "";
-
-    function addQuestion() {
-        question = [...question, {value: newquestion, options: [{value: newquestion}, {value: newquestion}, {value: newquestion}, {value: newquestion}], answer: newquestion, correct: newquestion, explain: newquestion}];
-        newquestion = "";
-    }
-
+let questions = []
+let question = {
+	label: '',
+	options: []
+}
+let option = { value: '', isCorrect: false }
+function addNewOption() {
+	// console.log('option', option)
+	question.options = [...question.options, { ...option }]
+	// console.log('question.options', question.options)
+	cleaOption()
+}
+function addNewQuestion() {
+	console.log('question', question)
+	questions = [...questions, { ...question }]
+	console.log('questions', questions)
+	cleaQuestion()
+}
+function cleaOption() {
+	option.value = ''
+	option.isCorrect = false
+}
+function cleaQuestion() {
+	question.label = ''
+	question.options = []
+}
 </script>
-
-
-<div>
-    <form on:submit={addQuestion}>
-        <input type="text" bind:value="{question[0].value}">
-        <br/>
-        <input type="text" bind:value="{question[0].options[0].value}">
-        <br/>
-        <input type="text" bind:value="{question[0].options[1].value}">
-        <br/>
-        <input type="text" bind:value="{question[0].options[2].value}">
-        <br/>
-        <input type="text" bind:value="{question[0].options[3].value}">
-        <br/>
-        <input type="text" bind:value="{question[0].answer}">
-        <br/>
-        <input type="text" bind:value="{question[0].correct}">
-        <br/>
-        <input type="text" bind:value="{question[0].explain}">
-        <br/>
-        <button type="submit">Submit</button>
-    </form>
-
-    <table>
-        <tr>
-            <th>Question</th>
-            <th>Option 1</th>
-            <th>Option 2</th>
-            <th>Option 3</th>
-            <th>Option 4</th>
-            <th>Answer</th>
-            <th>Explanation</th>
-        </tr>
-        {#each question as q}
-        <tr>
-            <td>{q.value}</td>
-            <td>{q.options[0].value}</td>
-            <td>{q.options[1].value}</td>
-            <td>{q.options[2].value}</td>
-            <td>{q.options[3].value}</td>
-            <td>{q.answer}</td>
-            <td>{q.explain}</td>
-        </tr>
-        {/each}
-    </table>
+<div class="container mx-auto min-h-screen max-w-xl p-3 text-black sm:p-10">
+	<h1 class="mb-4 text-lg font-bold">Add Questions</h1>
+	<div class="flex flex-col gap-2 rounded-3xl bg-black p-6 shadow-lg">
+		<label>
+			<h2 class="mb-2 font-semibold text-white">Question</h2>
+			<input type="text" bind:value="{question.label}" class="w-full" />
+		</label>
+		{#if question.options?.length > 0}
+			<ul class="text-white">
+				{#each question.options as o}
+					<li>{o.value}:{o.isCorrect}</li>
+				{/each}
+			</ul>
+		{/if}
+		<label for="option">
+			<h2 class="mb-2 font-semibold text-white">Option</h2>
+			<div class="flex items-center gap-2">
+				<input id="option" type="text" bind:value="{option.value}" class=" w-full" />
+				<input type="checkbox" bind:checked="{option.isCorrect}" class="h-6 w-6" />
+			</div>
+		</label>
+		<button
+			type="submit"
+			class="max-w-max bg-white px-2 py-1 focus:outline-none"
+			on:click="{addNewOption}">
+			Add New Option
+		</button>
+		<button
+			type="button"
+			class="max-w-max bg-white px-2 py-1 focus:outline-none"
+			on:click="{addNewQuestion}">
+			Add New Question
+		</button>
+	</div>
+	<br />
+	<br />
+	<br />
+	<table>
+		<thead>
+			<tr class="divide-x">
+				<th class="p-3">#</th><th class="p-3">questions</th><th class="p-3">options</th>
+			</tr>
+		</thead>
+		<tbody>
+			{#each questions as q, qx}
+				<tr>
+					<td class="p-3">{qx + 1}</td>
+					<td class="p-3">{q.label}</td>
+					<td class="p-3">
+						<ul class="flex flex-col gap-1">
+							{#each q.options as o}
+								<li class="flex items-center gap-2">
+									<span>{o.value}</span>
+									:
+									<span>{o.isCorrect}</span>
+								</li>
+							{/each}
+						</ul>
+					</td>
+				</tr>
+			{/each}
+		</tbody>
+	</table>
 </div>
-
 
 
