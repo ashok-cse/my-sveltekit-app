@@ -249,10 +249,15 @@
         <td>{quizQuestion}</td>
         <td>{quizAnswer}</td>
         <td>{quizOptions}</td>
+        log: {JSON.stringify(quizOptions)}
+        log: {JSON.stringify(quizOptions[0])}
+        log: {JSON.stringify(quizOptions[1])}
+        log: {JSON.stringify(quizOptions[2])}
+        
       </tr>
     </tbody>
     </table>
-    
+
 
 <style>
 	* {
