@@ -57,7 +57,7 @@
     let newquestion = [...question];
 
     function addQuestion() {
-        newquestion = [...newquestion, ...demoquestion];
+        newquestion = [...newquestion, ...question];
     }
 
 </script>
