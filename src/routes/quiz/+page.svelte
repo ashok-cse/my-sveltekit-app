@@ -28,21 +28,20 @@
 </div>
 {/each}
 
-<table>
-    <thead>
-        <tr>
-            <th>id</th>
-            <th>first</th>
-            <th>age</th>
-        </tr>
-    </thead>
-    <tbody>
-        {#each totalAttendees as attendee}
-        <tr>
-            <td>{attendee.id}</td>
-            <td>{attendee.first}</td>
-            <td>{attendee.age}</td>
-        </tr>
-        {/each}
-    </tbody>
-</table>
+<div style="display: flex;">
+	<table>
+        <thead>
+            <tr>
+                <th>First</th>
+                <th>Age</th>
+            </tr>
+        </thead>
+        <tbody>
+            {#each totalAttendees as attend}
+            <tr>
+                <td>{attend.first}</td>
+                <td>{attend.age}</td>
+            </tr>
+            {/each}
+    </table>
+</div>
