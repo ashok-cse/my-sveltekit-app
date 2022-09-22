@@ -56,19 +56,18 @@
     ];
    
     let newquestion = [...question];
-   
-    function onFormSubmit() {
-        newquestion = [...question];
-        console.log(newquestion);
-    }
 
+    function addQuestion() {
+        newquestion = [...newquestion, ...demoquestion];
+
+    }
 
 
 </script>
 
 
 <div>
-    <form on:submit={onFormSubmit}>
+    <form on:submit={addQuestion}>
         <input type="text" bind:value="{question[0].value}">
         <br/>
         <input type="text" bind:value="{question[0].options[0].value}">
