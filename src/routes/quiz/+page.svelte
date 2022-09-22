@@ -30,7 +30,7 @@
         },
     ];
 
-    let newquestion = [...question];
+
 
     let demoquestion = [
         {
@@ -55,11 +55,11 @@
         },
     ];
    
+    let newquestion = [...question];
    
     function onFormSubmit() {
-         demoquestion = [...demoquestion, [...newquestion]]
-            
-             newquestion = question
+          demoquestion = [...newquestion];
+           newquestion = question
     }
 
 
