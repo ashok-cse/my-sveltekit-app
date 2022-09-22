@@ -4,69 +4,75 @@
 </svelte:head>
 
 <script>
-	let people = [
-		{ first: 'Hans', last: 'Emil' },
-		{ first: 'Max', last: 'Mustermann' },
-		{ first: 'Roman', last: 'Tisch' }
+	let quiz = [
+		{ question: '', options1: '', options2: '', options3: '', options4: '', correct: '',  },
 	];
 
-	let prefix = '';
-	let first = '';
-	let last = '';
+    let prefix = '';
+	let question = '';
+	let options1 = '';
+	let options2 = '';
+	let options3 = '';
+	let options4 = '';
+	let correct = '';
 	let i = 0;
 
-	$: filteredPeople = prefix
-		? people.filter(person => {
-			const name = `${person.last}, ${person.first}`;
+	$: filteredQues = prefix
+		? quiz.filter(ops => {
+			const name = `${ops.options1}, ${ops.options2}, ${ops.options3}, ${ops.options4}`;
 			return name.toLowerCase().startsWith(prefix.toLowerCase());
 		})
-		: people;
+		: quiz;
 
-	$: selected = filteredPeople[i];
+	$: selected = filteredQues[i];
 
-	$: reset_inputs(selected);
 
 	function create() {
-		people = people.concat({ first, last });
-		i = people.length - 1;
-		first = last = '';
+		quiz = quiz.concat({ question, options1, options2, options3, options4, correct });
+		i = quiz.length - 1;
+		question = options1 = options2 = options3 = options4 = correct = '';
 	}
 
 	function update() {
-		selected.first = first;
-		selected.last = last;
-		people = people;
+		selected.question = question;
+		selected.options1 = options1;
+		selected.options2 = options2;
+		selected.options3 = options3;
+		selected.options4 = options4;
+		selected.correct = correct;
+
+		quiz = quiz;
 	}
 
 	function remove() {
 		// Remove selected person from the source array (people), not the filtered array
-		const index = people.indexOf(selected);
-		people = [...people.slice(0, index), ...people.slice(index + 1)];
+		const index = quiz.indexOf(selected);
+		quiz = [...quiz.slice(0, index), ...quiz.slice(index + 1)];
 
-		first = last = '';
-		i = Math.min(i, filteredPeople.length - 2);
-	}
-
-	function reset_inputs(person) {
-		first = person ? person.first : '';
-		last = person ? person.last : '';
+		question = options1 = options2 = options3 = options4 = correct = '';
+		i = Math.min(i, filteredQues.length - 2);
 	}
 </script>
 
 <input placeholder="filter prefix" bind:value={prefix}>
 
 <select bind:value={i} size={5}>
-	{#each filteredPeople as person, i}
-		<option value={i}>{person.last}, {person.first}</option>
+	{#each filteredQues as ques, i}
+		<option value={i}>{ques.question}, {ques.options1}, {ques.options2}, {ques.options3}, {ques.options4}, {ques.correct}</option>
 	{/each}
 </select>
 
-<label><input bind:value={first} placeholder="first"></label>
-<label><input bind:value={last} placeholder="last"></label>
+<label><input bind:value={question} placeholder="question">question</label>
+<label><input bind:value={options1} placeholder="options1">options1</label>
+<label><input bind:value={options2} placeholder="options2">options2</label>
+<label><input bind:value={options3} placeholder="options3">options3</label>
+<label><input bind:value={options4} placeholder="options4">options4</label>
+<label><input bind:value={correct} placeholder="correct">Correct</label>
+
 
 <div class='buttons'>
-	<button on:click={create} disabled="{!first || !last}">create</button>
-	<button on:click={update} disabled="{!first || !last || !selected}">update</button>
+	<button on:click={create} disabled="{!question || !options1 || !options2 || !options3 || !options4 || !correct}">create</button>
+	<button on:click={update} disabled="{!question || !options1 || !options2 || !options3 || !options4 || !correct || !selected}">update</button>
 	<button on:click={remove} disabled="{!selected}">delete</button>
 </div>
 
