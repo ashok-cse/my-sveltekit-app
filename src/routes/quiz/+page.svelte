@@ -33,13 +33,36 @@
     ]
 
     function onFormSubmit() {
-        question = question.map((q) => {
-            if (q.answer === q.correct) {
-                q.correct = q.answer
-            }
-            return q
+        question.push({
+            label: "",
+            options: [
+                 {
+                    label: "",
+                    value: "",
+                 },
+                 {
+                    label: "",
+                    value: "",
+                 },
+                 {
+                    label: "",
+                    value: "",
+                    correct: false
+                 },
+                 {
+                    label: "",
+                    value: "",
+                 }
+                ],
+            answer: "",
+            correct: "",
+            explain: "",
         })
+
+        return question;
+
     }
+
 
 
 </script>
@@ -64,13 +87,7 @@
         <button type="submit" on:click="{onFormSubmit}">Submit</button>
     </form>
 
-    <p>{question[0].label}</p>
-    <p>{question[0].options[0].label}</p>
-    <p>{question[0].options[1].label}</p>
-    <p>{question[0].options[2].label}</p>
-    <p>{question[0].options[3].label}</p>
-    <p>{question[0].answer}</p>
-    <p>{question[0].explain}</p>
+    <p>{JSON.stringify(question)}</p>
 
 </div>
 
