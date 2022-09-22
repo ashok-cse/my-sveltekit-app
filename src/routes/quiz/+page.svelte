@@ -55,11 +55,11 @@
         },
     ];
    
-    let newquestion = [...question];
+    let newquestion = "";
 
     function addQuestion() {
-        newquestion = [...newquestion, ...demoquestion];
-        newquestion = question
+        question = [...question];
+        newquestion = "";
     }
 
 </script>
@@ -96,7 +96,7 @@
             <th>Answer</th>
             <th>Explanation</th>
         </tr>
-        {#each demoquestion as q}
+        {#each question as q}
         <tr>
             <td>{q.value}</td>
             <td>{q.options[0].value}</td>
