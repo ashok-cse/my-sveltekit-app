@@ -27,32 +27,18 @@
                  }
                 ],
             answer: "",
+            correct: "",
             explain: "",
         },
     ]
 
     function onFormSubmit() {
-        console.log(question)
-    }
-
-    function onFormReset() {
-        console.log("reset")
-    }
-
-    function onFormChange() {
-        console.log("change")
-    }
-
-    function onFormInput() {
-        console.log("input")
-    }
-
-    function onFormInvalid() {
-        console.log("invalid")
-    }
-
-    function onFormValid() {
-        console.log("valid")
+        question = question.map((q) => {
+            if (q.answer === q.correct) {
+                q.correct = q.answer
+            }
+            return q
+        })
     }
 
 
@@ -70,6 +56,15 @@
         <input type="text" bind:value="{question[0].explain}">
         <button type="submit" on:click="{onFormSubmit}">Submit</button>
     </form>
+
+    <p>{question[0].label}</p>
+    <p>{question[0].options[0].label}</p>
+    <p>{question[0].options[1].label}</p>
+    <p>{question[0].options[2].label}</p>
+    <p>{question[0].options[3].label}</p>
+    <p>{question[0].answer}</p>
+    <p>{question[0].explain}</p>
+    
 </div>
 
 
