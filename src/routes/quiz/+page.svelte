@@ -68,7 +68,7 @@
 
 
 <div>
-    <form on:submit="{onFormSubmit}">
+    <form on:submit={onFormSubmit}>
         <input type="text" bind:value="{question[0].value}">
         <br/>
         <input type="text" bind:value="{question[0].options[0].value}">
