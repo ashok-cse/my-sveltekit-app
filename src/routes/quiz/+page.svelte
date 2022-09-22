@@ -58,7 +58,9 @@
     let newquestion = [...question];
 
     function addQuestion() {
-        newquestion = [...newquestion, ...demoquestion];
+       demoquestion.forEach((item) => {
+          newquestion.push(item);
+       });
     }
 
 
@@ -83,7 +85,6 @@
         <br/>
         <input type="text" bind:value="{question[0].explain}">
         <br/>
-
         <button type="submit">Submit</button>
     </form>
 
@@ -97,7 +98,7 @@
             <th>Answer</th>
             <th>Explanation</th>
         </tr>
-        {#each newquestion as q}
+        {#each demoquestion as q}
         <tr>
             <td>{q.value}</td>
             <td>{q.options[0].value}</td>
