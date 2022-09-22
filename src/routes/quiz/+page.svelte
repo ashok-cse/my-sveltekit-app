@@ -4,109 +4,37 @@
 	<meta name="description" content=" Quiz Panel app" />
 </svelte:head>
 <script>
-
-
-    let question = [
-        {
-          value: "",
-            options: [
-                 {
-                    value: "",
-                 },
-                 {
-                    value: "",
-                 },
-                 {
-                    value: "",
-                 },
-                 {
-                    value: "",
-                 }
-                ],
-            answer: "",
-            correct: "",
-            explain: "",
-        },
-    ];
-
-
-
-    let demoquestion = [
-        {
-          value: "What is the capital of India?",
-            options: [
-                 {
-                    value: "Delhi",
-                 },
-                 {
-                    value: "Mumbai",
-                 },
-                 {
-                    value: "Kolkata",
-                 },
-                 {
-                    value: "Chennai",
-                 }
-                ],
-            answer: "Delhi",
-            correct: "Delhi",
-            explain: "Delhi is the capital of India",
-        },
-    ];
-   
-    let newquestion = [...question];
-
-    function addQuestion() {
-        newquestion = [...newquestion, ...question];
-    }
-
+	let num = 0;
+	let totalAttendees = [];
+	let defaultAttendee = {
+		id: 1,
+		first: '',
+		age: undefined
+	};
+	function addPerson(attendee) {
+		totalAttendees = [...totalAttendees, attendee];
+	}
+	
+	$: attendees = Array(num).fill(defaultAttendee).map((v, i) => ({...v, id: i}));
 </script>
 
+<input bind:value={num} type="number"/>
 
+{#each attendees as attendee, i}
 <div>
-    <form on:submit={addQuestion}>
-        <input type="text" bind:value="{question[0].value}">
-        <br/>
-        <input type="text" bind:value="{question[0].options[0].value}">
-        <br/>
-        <input type="text" bind:value="{question[0].options[1].value}">
-        <br/>
-        <input type="text" bind:value="{question[0].options[2].value}">
-        <br/>
-        <input type="text" bind:value="{question[0].options[3].value}">
-        <br/>
-        <input type="text" bind:value="{question[0].answer}">
-        <br/>
-        <input type="text" bind:value="{question[0].correct}">
-        <br/>
-        <input type="text" bind:value="{question[0].explain}">
-        <br/>
-        <button type="submit">Submit</button>
-    </form>
-
-    <table>
-        <tr>
-            <th>Question</th>
-            <th>Option 1</th>
-            <th>Option 2</th>
-            <th>Option 3</th>
-            <th>Option 4</th>
-            <th>Answer</th>
-            <th>Explanation</th>
-        </tr>
-        {#each newquestion as q}
-        <tr>
-            <td>{q.value}</td>
-            <td>{q.options[0].value}</td>
-            <td>{q.options[1].value}</td>
-            <td>{q.options[2].value}</td>
-            <td>{q.options[3].value}</td>
-            <td>{q.answer}</td>
-            <td>{q.explain}</td>
-        </tr>
-        {/each}
-    </table>
+	<input type="text" bind:value={attendee.first} class="bg-transparent" placeholder="first" />
+	<input type="number" bind:value={attendee.age} class="bg-transparent" placeholder="age" />
+	<button type="button" on:click={() => addPerson(attendee)}>add</button>
 </div>
+{/each}
 
-
-
+<div style="display: flex;">
+	<div style="margin-right: 20px; flex-grow: 1">
+		<h1>attendees</h1>
+		<pre>{JSON.stringify(attendees, null, 2)}</pre>
+	</div>
+	<div style="flex-grow: 1">
+		<h1>totalAttendees</h1>
+		<pre>{JSON.stringify(totalAttendees, null, 2)}</pre>
+	</div>
+</div>
