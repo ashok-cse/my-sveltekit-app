@@ -94,7 +94,7 @@
             <th>Answer</th>
             <th>Explanation</th>
         </tr>
-        {#each demoquestion as q}
+        {#each newquestion as q}
         <tr>
             <td>{q.value}</td>
             <td>{q.options[0].value}</td>
