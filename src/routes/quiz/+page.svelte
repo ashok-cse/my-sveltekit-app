@@ -28,13 +28,21 @@
 </div>
 {/each}
 
-<div style="display: flex;">
-	<div style="margin-right: 20px; flex-grow: 1">
-		<h1>attendees</h1>
-		<pre>{JSON.stringify(attendees, null, 2)}</pre>
-	</div>
-	<div style="flex-grow: 1">
-		<h1>totalAttendees</h1>
-		<pre>{JSON.stringify(totalAttendees, null, 2)}</pre>
-	</div>
-</div>
+<table>
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>first</th>
+            <th>age</th>
+        </tr>
+    </thead>
+    <tbody>
+        {#each totalAttendees as attendee}
+        <tr>
+            <td>{attendee.id}</td>
+            <td>{attendee.first}</td>
+            <td>{attendee.age}</td>
+        </tr>
+        {/each}
+    </tbody>
+</table>
