@@ -6,258 +6,211 @@
 
 
 <script>
-    let quizQuestion = "";
-    let quizAnswer = "";
-    let quizOptions = [""];
-    let quizOptionsCount = 0;
-    let quizOptionsCountMax = 100;
-    let quizOptionsCountMin = 2;
+   var selectedRow = null
 
-    function addOption() {
-        if (quizOptionsCount < quizOptionsCountMax) {
-            quizOptionsCount++;
-            quizOptions.push("");
-        }
+function onFormSubmit() {
+    if (validate()) {
+        var formData = readFormData();
+        if (selectedRow == null)
+            insertNewRecord(formData);
+        else
+            updateRecord(formData);
+        resetForm();
     }
+}
 
-    function removeOption() {
-        if (quizOptionsCount > quizOptionsCountMin) {
-            quizOptionsCount--;
-            quizOptions.pop();
-        }
-    }
+function readFormData() {
+    var formData = {};
+    formData["ques"] = document.getElementById("ques").value;
+    formData["myCheck"] = document.getElementById("myCheck").value;
+    formData["myCheck1"] = document.getElementById("myCheck1").value;
+    formData["myCheck2"] = document.getElementById("myCheck2").value;
+    formData["myCheck3"] = document.getElementById("myCheck3").value;
+    formData["Options1"] = document.getElementById("Options1").value;
+    formData["Options2"] = document.getElementById("Options2").value;
+    formData["Options3"] = document.getElementById("Options3").value;
+    formData["Options4"] = document.getElementById("Options4").value;
+    formData["explain"] = document.getElementById("explain").value;
+    return formData;
+}
 
-    function submitQuiz() {
-        console.log(quizQuestion);
-        console.log(quizAnswer);
-        console.log(quizOptions);
-    }
-
-    function resetQuiz() {
-        quizQuestion = "";
-        quizAnswer = "";
-        quizOptions = [];
-        quizOptionsCount = 0;
-    }
-
-    function handleOptionChange(event, index) {
-        quizOptions[index] = event.target.value;
-    }
-
-    function handleAnswerChange(event) {
-        quizAnswer = event.target.value;
-    }
-
-    function handleQuestionChange(event) {
-        quizQuestion = event.target.value;
-    }
-
-    function handleOptionCountChange(event) {
-        quizOptionsCount = event.target.value;
-    }
-
-    function handleOptionCountSubmit(event) {
-        event.preventDefault();
-        if (quizOptionsCount > quizOptionsCountMax) {
-            quizOptionsCount = quizOptionsCountMax;
-        } else if (quizOptionsCount < quizOptionsCountMin) {
-            quizOptionsCount = quizOptionsCountMin;
-        }
-        quizOptions = [];
-        for (let i = 0; i < quizOptionsCount; i++) {
-            quizOptions.push("");
-        }
-    }
-
-    function handleOptionCountReset(event) {
-        event.preventDefault();
-        quizOptionsCount = 0;
-        quizOptions = [];
-    }
-
-    function handleOptionCountBlur(event) {
-        if (quizOptionsCount > quizOptionsCountMax) {
-            quizOptionsCount = quizOptionsCountMax;
-        } else if (quizOptionsCount < quizOptionsCountMin) {
-            quizOptionsCount = quizOptionsCountMin;
-        }
-    }
-
-    function handleOptionCountFocus(event) {
-        event.target.select();
-    }
-
-    function handleOptionCountKeyDown(event) {
-        if (event.key === "Enter") {
-            handleOptionCountSubmit(event);
-        }
-    }
-
-    function handleOptionCountKeyUp(event) {
-        if (event.key === "Escape") {
-            handleOptionCountReset(event);
-        }
-    }
-
-    function handleOptionCountMouseUp(event) {
-        event.target.select();
-    }
-
-    function handleOptionCountWheel(event) {
-        event.preventDefault();
-        if (event.deltaY > 0) {
-            quizOptionsCount--;
-        } else {
-            quizOptionsCount++;
-        }
-        if (quizOptionsCount > quizOptionsCountMax) {
-            quizOptionsCount = quizOptionsCountMax;
-        } else if (quizOptionsCount < quizOptionsCountMin) {
-            quizOptionsCount = quizOptionsCountMin;
-        }
-    }
-
-    function handleOptionCountPaste(event) {
-        event.preventDefault();
-        let clipboardData = event.clipboardData || window.clipboardData;
-        let pastedData = clipboardData.getData("text");
-        if (pastedData) {
-            quizOptionsCount = parseInt(pastedData);
-        }
-    }
-
-    function handleOptionCountCut(event) {
-        event.preventDefault();
-        let clipboardData = event.clipboardData || window.clipboardData;
-        let cutData = quizOptionsCount.toString();
-        if (cutData) {
-            clipboardData.setData("text", cutData);
-            quizOptionsCount = 0;
-        }
-    }
-
-    function handleOptionCountCopy(event) {
-        event.preventDefault();
-        let clipboardData = event.clipboardData || window.clipboardData;
-        let copyData = quizOptionsCount.toString();
-        if (copyData) {
-            clipboardData.setData("text", copyData);
-        }
-    }
-
-    function handleOptionCountSelect(event) {
-        event.target.select();
-    }
-
-    function handleOptionCountSelectStart(event) {
-        event.preventDefault();
-    }
-
-    function handleOptionCountSelectEnd(event) {
-        event.preventDefault();
-    }
-
-    function handleOptionCountSelectAll(event) {
-        event.preventDefault();
-    }
-
-    function handleOptionCountContextMenu(event) {
-        event.preventDefault();
-    }
-
-    function handleOptionCountDrag(event) {
-        event.preventDefault();
-    }
-
-    function handleOptionCountDragStart(event) {
-        event.preventDefault();
-    }
-
-    function handleOptionCountDragEnd(event) {
-        event.preventDefault();
-    }
-
-    function handleOptionCountDragEnter(event) {
-        event.preventDefault();
-    }
-
-    function handleOptionCountDragOver(event) {
-        event.preventDefault();
-    }
-
-    function handleOptionCountDragLeave(event) {
-        event.preventDefault();
-    }
-
-    function handleOptionCountDrop(event) {
-        event.preventDefault();
-        let dataTransfer = event.dataTransfer || event.originalEvent.dataTransfer;
-        let droppedData = dataTransfer.getData("text");
-        if (droppedData) {
-            quizOptionsCount = parseInt(droppedData);
-        }
-    }
+function insertNewRecord(data) {
+    var table = document.getElementById("QuesList").getElementsByTagName('tbody')[0];
+    var newRow = table.insertRow(table.length);
+    cell1 = newRow.insertCell(0);
+    cell1.innerHTML = data.ques;
+    cell2 = newRow.insertCell(1);
+    cell2.innerHTML = data.Options1;
+    cell3 = newRow.insertCell(2);
+    cell3.innerHTML = data.Options2;
+    cell4 = newRow.insertCell(3);
+    cell4.innerHTML = data.Options3;
+    cell5 = newRow.insertCell(4);
+    cell5.innerHTML = data.Options4;
     
+
+    if (document.getElementById("myCheck").checked == true) {
+        document.getElementById("myCheck1").checked = false;
+        document.getElementById("myCheck2").checked = false;
+        document.getElementById("myCheck3").checked = false;
+        cell6 = newRow.insertCell(5);
+        cell6.innerHTML = data.Options1;
+    } if (document.getElementById("myCheck1").checked == true) {
+        document.getElementById("myCheck").checked = false;
+        document.getElementById("myCheck2").checked = false;
+        document.getElementById("myCheck3").checked = false;
+        cell6 = newRow.insertCell(5);
+        cell6.innerHTML = data.Options2;
+    }  if (document.getElementById("myCheck2").checked == true) {
+        document.getElementById("myCheck").checked = false;
+        document.getElementById("myCheck1").checked = false;
+        document.getElementById("myCheck3").checked = false;
+        cell6 = newRow.insertCell(5);
+        cell6.innerHTML = data.Options3;
+
+    }  if (document.getElementById("myCheck3").checked == true) {
+        document.getElementById("myCheck").checked = false;
+        document.getElementById("myCheck1").checked = false;
+        document.getElementById("myCheck2").checked = false;
+        cell6 = newRow.insertCell(5);
+        cell6.innerHTML = data.Options4;
+    }
+    cell7 = newRow.insertCell(6);
+    cell7.innerHTML = data.explain;
+    cell8 = newRow.insertCell(7);
+    cell8.innerHTML = `<a onClick="onEdit(this)">Edit</a>
+                       <a onClick="onDelete(this)">Delete</a>`;
+}
+
+function resetForm() {
+    document.getElementById("ques").value = "";
+    document.getElementById("Options1").value = "";
+    document.getElementById("Options2").value = "";
+    document.getElementById("Options3").value = "";
+    document.getElementById("Options4").value = "";
+    document.getElementById("answer").value = "";
+    document.getElementById("explain").value = "";
+    selectedRow = null;
+}
+
+function onEdit(td) {
+    selectedRow = td.parentElement.parentElement;
+    document.getElementById("ques").value = selectedRow.cells[0].innerHTML;
+    document.getElementById("Options1").value = selectedRow.cells[1].innerHTML;
+    document.getElementById("Options2").value = selectedRow.cells[2].innerHTML;
+    document.getElementById("Options3").value = selectedRow.cells[3].innerHTML;
+    document.getElementById("Options4").value = selectedRow.cells[4].innerHTML;
+    document.getElementById("explain").value = selectedRow.cells[6].innerHTML;
+}
+function updateRecord(formData) {
+    selectedRow.cells[0].innerHTML = formData.ques;
+    selectedRow.cells[1].innerHTML = formData.Options1;
+    selectedRow.cells[2].innerHTML = formData.Options2;
+    selectedRow.cells[3].innerHTML = formData.Options3;
+    selectedRow.cells[4].innerHTML = formData.Options4;
+    if (document.getElementById("myCheck").checked == true) {
+        document.getElementById("myCheck1").checked = false;
+        document.getElementById("myCheck2").checked = false;
+        document.getElementById("myCheck3").checked = false;
+        selectedRow.cells[5].innerHTML = formData.Options1;
+    } if (document.getElementById("myCheck1").checked == true) {
+        document.getElementById("myCheck").checked = false;
+        document.getElementById("myCheck2").checked = false;
+        document.getElementById("myCheck3").checked = false;
+        selectedRow.cells[5].innerHTML = formData.Options2;
+    }  if (document.getElementById("myCheck2").checked == true) {
+        document.getElementById("myCheck").checked = false;
+        document.getElementById("myCheck1").checked = false;
+        document.getElementById("myCheck3").checked = false;
+        selectedRow.cells[5].innerHTML = formData.Options3;
+    }  if (document.getElementById("myCheck3").checked == true) {
+        document.getElementById("myCheck").checked = false;
+        document.getElementById("myCheck1").checked = false;
+        document.getElementById("myCheck2").checked = false;
+        selectedRow.cells[5].innerHTML = formData.Options4;
+    }
+    selectedRow.cells[6].innerHTML = formData.explain;
+}
+
+function onDelete(td) {
+    if (confirm('Are you sure to delete this record ?')) {
+        row = td.parentElement.parentElement;
+        document.getElementById("quesList").deleteRow(row.rowIndex);
+        resetForm();
+    }
+}
+function validate() {
+    isValid = true;
+    checked = false;
+    if (document.getElementById("ques").value == "") {
+        isValid = false;
+        document.getElementById("quesValidationError").classList.remove("hide");
+    } else {
+        isValid = true;
+        if (!document.getElementById("quesValidationError").classList.contains("hide"))
+            document.getElementById("quesValidationError").classList.add("hide");
+    }
+    if (document.getElementById("Options1").checked == false && document.getElementById("Options2").checked == false && document.getElementById("Options3").checked == false && document.getElementById("Options4").checked == false) {
+        checked = false;
+        console.error("Please Check One Option");
+    } else {
+        checked = true;
+    }
+    return isValid;
+}    
 
   </script>
   
-  <div>
-    <form on:submit={submitQuiz}>
-      <label for='name'>Name</label>
-      <input 
-        type="text" 
-        placeholder="Name of superhero" 
-        name="name"
-        required 
-        bind:value={quizQuestion} 
-      />
-      <br />
-      <label for='weapon'>Weapon</label>
-      <input 
-        type="text" 
-        placeholder="Weapon" 
-        name="weapon" 
-        required
-        bind:value={quizAnswer} 
-      />
-      <br />
-      <label for='team'>Team</label>
-      <select 
-        name="team" 
-        required
-        bind:value={quizOptions} 
-      >
-        <option value={'Avengers'}>Avengers</option>
-        <option value={'Justice League'}>Justice League</option>
-        <option value={'X-Men'}>X-Men</option>
-      </select>
-      <br /><br />
-      <input type="submit" />
-    </form>
-  </div>
-  <hr />
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Weapon</th>
-        <th>Team</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>{quizQuestion}</td>
-        <td>{quizAnswer}</td>
-        <td>{quizOptions}</td>
-        log: {JSON.stringify(quizOptions)}
-        log: {JSON.stringify(quizOptions[0])}
-        log: {JSON.stringify(quizOptions[1])}
-        log: {JSON.stringify(quizOptions[2])}
-        
-      </tr>
-    </tbody>
-    </table>
+ <hr>
+			<div class="quiz-form">
+                <form onsubmit="event.preventDefault();onFormSubmit();" autocomplete="off">
+                    <div>
+                        <label>Question</label><label class="validation-error hide" id="quesValidationError">This field is required.</label>
+                        <input type="text" name="ques" id="ques">
+                    </div>
+                    <div>
+                        <label>Options1</label>
+                        <input type="checkbox" id="myCheck">
+                        <input type="text" name="Options1" id="Options1">
+                        <label>Options2</label>
+                        <input type="checkbox" id="myCheck1">
+                        <input type="text" name="Options2" id="Options2">
+                        <label>Options3</label>
+                        <input type="checkbox" id="myCheck2">
+                        <input type="text" name="Options3" id="Options3">
+                        <label>Options4</label>
+                        <input type="checkbox" id="myCheck3">
+                        <input type="text" name="Options4" id="Options4">  
+                    </div>
+                    <div>
+                        <label>Explain Ans</label>
+                        <input type="text" name="explain" id="explain">
+                    </div>
+                    <div  class="form-action-buttons">
+                        <input type="submit" value="Submit">
+                    </div>
+                </form>
+		</div>
+		<br/>
+		<div class = "quiz-table">
+                <table class="list" id="QuesList">
+                    <thead>
+                        <tr>
+                            <th>Question</th>
+                            <th>Options1</th>
+                            <th>Options2</th>
+                            <th>Options3</th>
+                            <th>Options4</th>
+                            <th>Correct Ans</th>
+                            <th>Explain</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
+                    </tbody>
+                </table>
+        </div>
 
 <style>
 	* {
