@@ -4,6 +4,9 @@
 	<meta name="description" content=" Quiz Panel app" />
 </svelte:head>
 <script>
+  import Counter from "../../lib/Counter.svelte";
+
+
     let question = [
         {
           label: "",
@@ -30,37 +33,45 @@
             correct: "",
             explain: "",
         },
-    ]
+    ];
 
-    function onFormSubmit() {
-        question.push({
-            label: "",
+    let newquestion = [...question];
+
+    let demoquestion = [
+        {
+          label: "What is the capital of India?",
+          value: "What is the capital of India?",
             options: [
                  {
-                    label: "",
-                    value: "",
+                    label: "Delhi",
+                    value: "Delhi",
                  },
                  {
-                    label: "",
-                    value: "",
+                    label: "Mumbai",
+                    value: "Mumbai",
                  },
                  {
-                    label: "",
-                    value: "",
+                    label: "Kolkata",
+                    value: "Kolkata",
                     correct: false
                  },
                  {
-                    label: "",
-                    value: "",
+                    label: "Chennai",
+                    value: "Chennai",
                  }
                 ],
-            answer: "",
-            correct: "",
-            explain: "",
-        })
-
-        return question;
-
+            answer: "Delhi",
+            correct: "Delhi",
+            explain: "Delhi is the capital of India",
+        },
+    ];
+   
+   
+    
+    function onFormSubmit() {
+         demoquestion = [...demoquestion, [...newquestion]]
+            
+             newquestion = question
     }
 
 
@@ -70,24 +81,47 @@
 
 <div>
     <form>
-        <input type="text" bind:value="{question[0].label}">
+        <input type="text" bind:value="{question[0].value}" bind:label="{question[0].label}">
         <br/>
-        <input type="text" bind:value="{question[0].options[0].label}">
+        <input type="text" bind:value="{question[0].options[0].value}" bind:label="{question[0].options[0].label}">
         <br/>
-        <input type="text" bind:value="{question[0].options[1].label}">
+        <input type="text" bind:label="{question[0].options[1].label}" bind:value="{question[0].options[1].value}" >
         <br/>
-        <input type="text" bind:value="{question[0].options[2].label}">
+        <input type="text" bind:label="{question[0].options[2].label}" bind:value="{question[0].options[2].value}" >
         <br/>
-        <input type="text" bind:value="{question[0].options[3].label}">
+        <input type="text" bind:label="{question[0].options[3].label}" bind:value="{question[0].options[3].value}" >
         <br/>
-        <input type="text" bind:value="{question[0].answer}">
+        <input type="text" bind:value="{question[0].answer}" >
         <br/>
-        <input type="text" bind:value="{question[0].explain}">
+        <input type="text" bind:value="{question[0].correct}" >
+        <br/>
+        <input type="text" bind:value="{question[0].explain}" >
         <br/>
         <button type="submit" on:click="{onFormSubmit}">Submit</button>
     </form>
 
-    <p>{JSON.stringify(question)}</p>
+    <table>
+        <tr>
+            <th>Question</th>
+            <th>Option 1</th>
+            <th>Option 2</th>
+            <th>Option 3</th>
+            <th>Option 4</th>
+            <th>Answer</th>
+            <th>Explanation</th>
+        </tr>
+        {#each demoquestion as q}
+        <tr>
+            <td>{q.label}</td>
+            <td>{q.options[0].label}</td>
+            <td>{q.options[1].label}</td>
+            <td>{q.options[2].label}</td>
+            <td>{q.options[3].label}</td>
+            <td>{q.answer}</td>
+            <td>{q.explain}</td>
+        </tr>
+        {/each}
+    </table>
 
 </div>
 
