@@ -59,7 +59,6 @@
 
     function addQuestion() {
         newquestion = [...newquestion, ...demoquestion];
-
     }
 
 
@@ -98,30 +97,6 @@
             <th>Answer</th>
             <th>Explanation</th>
         </tr>
-        {#each demoquestion as q}
-        <tr>
-            <td>{q.value}</td>
-            <td>{q.options[0].value}</td>
-            <td>{q.options[1].value}</td>
-            <td>{q.options[2].value}</td>
-            <td>{q.options[3].value}</td>
-            <td>{q.answer}</td>
-            <td>{q.explain}</td>
-        </tr>
-        {/each}
-    </table>
-
-    <h1>Another table</h1>
-    <table>
-        <tr>
-            <th>Question</th>
-            <th>Option 1</th>
-            <th>Option 2</th>
-            <th>Option 3</th>
-            <th>Option 4</th>
-            <th>Answer</th>
-            <th>Explanation</th>
-        </tr>
         {#each newquestion as q}
         <tr>
             <td>{q.value}</td>
@@ -133,7 +108,7 @@
             <td>{q.explain}</td>
         </tr>
         {/each}
-
+    </table>
 </div>
 
 
