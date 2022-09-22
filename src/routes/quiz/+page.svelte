@@ -1,80 +1,138 @@
+
 <svelte:head>
 	<title>Quiz Panel</title>
 	<meta name="description" content=" Quiz Panel app" />
 </svelte:head>
 
+
 <script>
-	let quiz = [
-		{ question: '', options1: '', options2: '', options3: '', options4: '', correct: '',  },
-	];
-
-    let prefix = '';
-	let question = '';
-	let options1 = '';
-	let options2 = '';
-	let options3 = '';
-	let options4 = '';
-	let correct = '';
-	let i = 0;
-
-	$: filteredQues = prefix
-		? quiz.filter(ops => {
-			const name = `${ops.options1}, ${ops.options2}, ${ops.options3}, ${ops.options4}`;
-			return name.toLowerCase().startsWith(prefix.toLowerCase());
-		})
-		: quiz;
-
-	$: selected = filteredQues[i];
-
-
-	function create() {
-		quiz = quiz.concat({ question, options1, options2, options3, options4, correct });
-		i = quiz.length - 1;
-		question = options1 = options2 = options3 = options4 = correct = '';
-	}
-
-	function update() {
-		selected.question = question;
-		selected.options1 = options1;
-		selected.options2 = options2;
-		selected.options3 = options3;
-		selected.options4 = options4;
-		selected.correct = correct;
-
-		quiz = quiz;
-	}
-
-	function remove() {
-		// Remove selected person from the source array (people), not the filtered array
-		const index = quiz.indexOf(selected);
-		quiz = [...quiz.slice(0, index), ...quiz.slice(index + 1)];
-
-		question = options1 = options2 = options3 = options4 = correct = '';
-		i = Math.min(i, filteredQues.length - 2);
-	}
-</script>
-
-<input placeholder="filter prefix" bind:value={prefix}>
-
-<select bind:value={i} size={5}>
-	{#each filteredQues as ques, i}
-		<option value={i}>{ques.question}, {ques.options1}, {ques.options2}, {ques.options3}, {ques.options4}, {ques.correct}</option>
-	{/each}
-</select>
-
-<label><input bind:value={question} placeholder="question">question</label>
-<label><input bind:value={options1} placeholder="options1">options1</label>
-<label><input bind:value={options2} placeholder="options2">options2</label>
-<label><input bind:value={options3} placeholder="options3">options3</label>
-<label><input bind:value={options4} placeholder="options4">options4</label>
-<label><input bind:value={correct} placeholder="correct">Correct</label>
-
-
-<div class='buttons'>
-	<button on:click={create} disabled="{!question || !options1 || !options2 || !options3 || !options4 || !correct}">create</button>
-	<button on:click={update} disabled="{!question || !options1 || !options2 || !options3 || !options4 || !correct || !selected}">update</button>
-	<button on:click={remove} disabled="{!selected}">delete</button>
-</div>
+    let superheroName = "";
+    let superheroWeapon = "";
+    let superheroTeam = "";
+    let editEntryIndex = -1;
+  
+    const superhero = [
+      {
+        name: "Captain America",
+        weapon: "Shield",
+        team: "Avengers"
+      },
+      {
+        name: "Flash",
+        weapon: "Speed",
+        team: "Justice League"
+      },
+      {
+        name: "Wolverine",
+        weapon: "Claws",
+        team: "X-Men"
+      }
+    ];
+  
+    function submitForm(e) {
+      e.preventDefault();
+  
+      if (editEntryIndex > -1) {
+        superhero[editEntryIndex] = {
+          name: superheroName,
+          weapon: superheroWeapon,
+          team: superheroTeam
+        };
+      } else {
+        superhero.push({
+          name: superheroName,
+          weapon: superheroWeapon,
+          team: superheroTeam
+        });
+      }
+  
+      superhero = superhero;
+      superheroName = "";
+      superheroTeam = "";
+      superheroWeapon = "";
+      editEntryIndex = -1;
+    }
+  
+    function editSuperhero(index) {
+      editEntryIndex = index;
+      superheroName = superhero[editEntryIndex].name;
+      superheroTeam = superhero[editEntryIndex].team;
+      superheroWeapon = superhero[editEntryIndex].weapon;
+    }
+  
+    function deleteSuperhero(index) {
+      superhero.splice(index, 1);
+      superhero = superhero;
+    }
+  </script>
+  
+  <div>
+    <form on:submit={submitForm}>
+      <label for='name'>Name</label>
+      <input 
+        type="text" 
+        placeholder="Name of superhero" 
+        name="name"
+        required 
+        bind:value={superheroName} 
+      />
+      <br />
+      <label for='weapon'>Weapon</label>
+      <input 
+        type="text" 
+        placeholder="Weapon" 
+        name="weapon" 
+        required
+        bind:value={superheroWeapon} 
+      />
+      <br />
+      <label for='team'>Team</label>
+      <select 
+        name="team" 
+        required
+        bind:value={superheroTeam} 
+      >
+        <option value={'Avengers'}>Avengers</option>
+        <option value={'Justice League'}>Justice League</option>
+        <option value={'X-Men'}>X-Men</option>
+      </select>
+      <br /><br />
+      <input type="submit" />
+    </form>
+  </div>
+  <hr />
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Weapon</th>
+        <th>Team</th>
+      </tr>
+    </thead>
+    <tbody>
+      {#each superhero as singlehero, index (index)}
+      <tr>
+        <td>{singlehero.name}</td>
+        <td>{singlehero.weapon}</td>
+        <td>{singlehero.team}</td>
+        <td>
+          <a 
+            href="#" 
+            on:click={() => editSuperhero(index)}>
+            Edit
+          </a>
+        </td>
+        <td>
+          <a 
+            href="#" 
+            on:click={() => deleteSuperhero(index)}>
+            Delete
+          </a>
+        </td>
+      </tr>
+      {/each}
+    </tbody>
+  </table>
 
 <style>
 	* {
