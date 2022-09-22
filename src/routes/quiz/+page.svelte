@@ -9,23 +9,18 @@
 
     let question = [
         {
-          label: "",
+          value: "",
             options: [
                  {
-                    label: "",
                     value: "",
                  },
                  {
-                    label: "",
                     value: "",
                  },
                  {
-                    label: "",
                     value: "",
-                    correct: false
                  },
                  {
-                    label: "",
                     value: "",
                  }
                 ],
@@ -39,24 +34,18 @@
 
     let demoquestion = [
         {
-          label: "What is the capital of India?",
           value: "What is the capital of India?",
             options: [
                  {
-                    label: "Delhi",
                     value: "Delhi",
                  },
                  {
-                    label: "Mumbai",
                     value: "Mumbai",
                  },
                  {
-                    label: "Kolkata",
                     value: "Kolkata",
-                    correct: false
                  },
                  {
-                    label: "Chennai",
                     value: "Chennai",
                  }
                 ],
@@ -81,22 +70,23 @@
 
 <div>
     <form>
-        <input type="text" bind:value="{question[0].value}" bind:label="{question[0].label}">
+        <input type="text" bind:value="{question[0].value}">
         <br/>
-        <input type="text" bind:value="{question[0].options[0].value}" bind:label="{question[0].options[0].label}">
+        <input type="text" bind:value="{question[0].options[0].value}">
         <br/>
-        <input type="text" bind:label="{question[0].options[1].label}" bind:value="{question[0].options[1].value}" >
+        <input type="text" bind:value="{question[0].options[1].value}">
         <br/>
-        <input type="text" bind:label="{question[0].options[2].label}" bind:value="{question[0].options[2].value}" >
+        <input type="text" bind:value="{question[0].options[2].value}">
         <br/>
-        <input type="text" bind:label="{question[0].options[3].label}" bind:value="{question[0].options[3].value}" >
+        <input type="text" bind:value="{question[0].options[3].value}">
         <br/>
-        <input type="text" bind:value="{question[0].answer}" >
+        <input type="text" bind:value="{question[0].answer}">
         <br/>
-        <input type="text" bind:value="{question[0].correct}" >
+        <input type="text" bind:value="{question[0].correct}">
         <br/>
-        <input type="text" bind:value="{question[0].explain}" >
+        <input type="text" bind:value="{question[0].explain}">
         <br/>
+
         <button type="submit" on:click="{onFormSubmit}">Submit</button>
     </form>
 
@@ -112,11 +102,11 @@
         </tr>
         {#each demoquestion as q}
         <tr>
-            <td>{q.label}</td>
-            <td>{q.options[0].label}</td>
-            <td>{q.options[1].label}</td>
-            <td>{q.options[2].label}</td>
-            <td>{q.options[3].label}</td>
+            <td>{q.value}</td>
+            <td>{q.options[0].value}</td>
+            <td>{q.options[1].value}</td>
+            <td>{q.options[2].value}</td>
+            <td>{q.options[3].value}</td>
             <td>{q.answer}</td>
             <td>{q.explain}</td>
         </tr>
