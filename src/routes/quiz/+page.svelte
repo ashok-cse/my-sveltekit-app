@@ -58,7 +58,7 @@
     let newquestion = "";
 
     function addQuestion() {
-        question = [...question];
+        question = [...question, {value: newquestion, options: [{value: newquestion}, {value: newquestion}, {value: newquestion}, {value: newquestion}], answer: newquestion, correct: newquestion, explain: newquestion}];
         newquestion = "";
     }
 
