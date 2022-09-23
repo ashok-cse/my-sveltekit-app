@@ -121,7 +121,7 @@ label.validation-error{
     }
 
     function deleteQuestion (index) {
-        questions = questions.filter((q, i) => i !== index)
+        questions = questions.filter((question, i) => i !== index)
     }
   
 
