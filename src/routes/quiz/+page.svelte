@@ -132,7 +132,7 @@ label.validation-error{
     function onSelectedquestion(question) {
         console.log('question', question)
     }
-    
+
     
 
     </script>
@@ -159,6 +159,11 @@ label.validation-error{
             </div>
             <button on:click={addNewQuestion}>Add Question</button>
         </div>
+        
+
+
+
+
      <table class="quiz-table">
         <thead>
             <tr>
@@ -170,12 +175,12 @@ label.validation-error{
         <tbody>
             {#each questions as question}
                 <tr>
-                    <td>{question.label}</td>
+                    <td contenteditable="true">{question.label}</td>
                     <td>
                         {#each question.options as option}
                             <div>
-                                <span>{option.value}</span>
-                                <span>{option.isCorrect}</span>
+                                <span contenteditable="true">{option.value}</span>
+                                <span contenteditable="true">{option.isCorrect}</span>
                             </div>
                         {/each}
                     </td>
