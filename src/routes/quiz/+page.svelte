@@ -20,7 +20,8 @@
 	function addPerson(attendee) {
         if(attendee.question == "" || attendee.options1 == "" || attendee.options2 == "" || attendee.options3 == "" || attendee.options4 == "" || attendee.answer == "" || attendee.explanation == ""){
             alert("Please fill all the fields");
-        }else{
+        }else if ( checked == false){
+            alert("Please select the correct answer");
 		totalAttendees = [...totalAttendees, attendee];
 	}
 }
