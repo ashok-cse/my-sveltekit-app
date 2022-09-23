@@ -19,11 +19,8 @@
 	};
     
 	function addPerson(attendee) {
-        if(attendee.question == "" || attendee.options1 == "" || attendee.options2 == "" || attendee.options3 == "" || attendee.options4 == "" || attendee.answer == "" || attendee.explanation == ""){
-        }else {
-        const id = attendee.checked.yes ? attendee.checked.yes : attendee.checked.no;
-        totalAttendees = [...totalAttendees, { ...attendee, id }];
-	}
+       
+        totalAttendees = [...totalAttendees, { ...attendee }];
 }
 	$: attendees = Array(num).fill(defaultAttendee).map((v, i) => ({...v, id: i}));
 </script>
