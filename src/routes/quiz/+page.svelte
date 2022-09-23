@@ -148,6 +148,7 @@ label.validation-error{
                 <input type="text" bind:value={option.value} />
                 <button on:click={addNewOption}>Add Option</button>
             </div>
+            <br/>
             <div>
                 {#each question.options as option}
                     <div>
@@ -157,6 +158,7 @@ label.validation-error{
                     </div>
                 {/each}
             </div>
+            <br/>
             <button on:click={addNewQuestion}>Add Question</button>
         </div>
         
@@ -185,7 +187,6 @@ label.validation-error{
                         {/each}
                     </td>
                     <td>
-                        <button on:click={editQuestion(question)}>Edit Question</button>
                         <br/>
                         <button on:click={delQuestion(question)}>Delete Question</button>
                     </td>
