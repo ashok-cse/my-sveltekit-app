@@ -8,25 +8,31 @@
 	let totalAttendees = [];
 	let defaultAttendee = {
 		id: 1,
-		first: '',
-		age: undefined
+		question: '',
+		answer: '',
+        explaination: '',
+        options : ''
 	};
 	function addPerson(attendee) {
 		totalAttendees = [...totalAttendees, attendee];
 	}
-	
-	$: attendees = Array(num).fill(defaultAttendee).map((v, i) => ({...v, id: i}));
+	function removePerson(id) {
+        totalAttendees = totalAttendees.filter((attendee) => attendee.id !== id);
+    }
+
+
 </script>
 
-<input bind:value={num} type="number"/>
 
-{#each attendees as attendee, i}
+
 <div>
-	<input type="text" bind:value={attendee.first} class="bg-transparent" placeholder="first" />
-	<input type="number" bind:value={attendee.age} class="bg-transparent" placeholder="age" />
-	<button type="button" on:click={() => addPerson(attendee)}>add</button>
+	<input type="text" bind:value={attendee.question} class="bg-transparent" placeholder="first" />
+    <input type="text" bind:value={attendee.answer} class="bg-transparent" placeholder="last" />
+    <input type="text" bind:value={attendee.explaination} class="bg-transparent" placeholder="last" />
+    <input type="text" bind:value={attendee.options} class="bg-transparent" placeholder="last" />
+    <button type="button" on:click={() => addPerson(attendee)}>add</button>
 </div>
-{/each}
+
 
 <div style="display: flex;">
 	<table>
