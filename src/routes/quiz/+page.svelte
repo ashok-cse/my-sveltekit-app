@@ -5,6 +5,7 @@
 </svelte:head>
 <script>
 	let num = 0;
+    let checked = false;
 	let totalAttendees = [];
 	let defaultAttendee = {
 		question : "",
@@ -17,9 +18,12 @@
 	};
     
 	function addPerson(attendee) {
+        if(attendee.question == "" || attendee.options1 == "" || attendee.options2 == "" || attendee.options3 == "" || attendee.options4 == "" || attendee.answer == "" || attendee.explanation == ""){
+            alert("Please fill all the fields");
+        }else{
 		totalAttendees = [...totalAttendees, attendee];
 	}
-	
+}
 	$: attendees = Array(num).fill(defaultAttendee).map((v, i) => ({...v, id: i}));
 </script>
 
@@ -27,13 +31,20 @@
 
 {#each attendees as attendee, i}
 <div>
-	<input type="text" bind:value={attendee.question} class="bg-transparent" />
-    <input type="text" bind:value={attendee.options1} class="bg-transparent" />
-    <input type="text" bind:value={attendee.options2} class="bg-transparent" />
-    <input type="text" bind:value={attendee.options3} class="bg-transparent" />
-    <input type="text" bind:value={attendee.options4} class="bg-transparent" />
-    <input type="text" bind:value={attendee.answer} class="bg-transparent" />
+	<input type="text" bind:value={attendee.question} class="bg-transparent" placeholder="Enter Your Question"/>
+    <input type="checkbox" {checked} >
+    <input type="text" bind:value={attendee.options1} class="bg-transparent" placeholder="Option 1" />
+    <input type="checkbox" {checked} >
+    <input type="text" bind:value={attendee.options2} class="bg-transparent" placeholder="Option 2" />
+    <input type="checkbox" {checked} >
+    <input type="text" bind:value={attendee.options3} class="bg-transparent" placeholder="Option 3" />
+    <input type="checkbox" {checked} >
+    <input type="text" bind:value={attendee.options4} class="bg-transparent" placeholder="Option 4" />
+    <input type="checkbox" {checked} >
+    <input type="text" bind:value={attendee.answer} class="bg-transparent"  />
+    <input type="checkbox" {checked} >
     <input type="text" bind:value={attendee.explanation} class="bg-transparent" />
+    <input type="checkbox" {checked} >
 	<button type="button" on:click={() => addPerson(attendee)}>add</button>
 
 </div>
