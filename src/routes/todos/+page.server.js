@@ -16,6 +16,8 @@ export const load = async ({ locals }) => {
 	// locals.userid comes from src/hooks.js
 	const response = await api('GET', `todos/${locals.userid}`);
 
+	console.log('response', response);
+
 	if (response.status === 404) {
 		// user hasn't created a todo list.
 		// start with an empty array
@@ -62,5 +64,6 @@ export const actions = {
 		const form = await request.formData();
 
 		await api('DELETE', `todos/${locals.userid}/${form.get('uid')}`);
+	
 	}
 };
