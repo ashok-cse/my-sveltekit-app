@@ -171,7 +171,7 @@ label.validation-error{
                     </td>
                     <td>
                         <a>Edit</a>
-                        <a on:click="{deleteQuestion}">Delete</a>
+                        <button on:click={deleteQuestion}>Delete Question</button>
                     </td>
                 </tr>
             {/each}
