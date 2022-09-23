@@ -4,6 +4,94 @@
 	<meta name="description" content=" Quiz Panel app" />
 </svelte:head>
 
+<style>
+    .quiz-form {
+    border-style: solid;
+    /* margin-bottom: 10px; */
+    /* margin-left: 10px; */
+    padding: 10px;
+    /* width: 50%; */
+    margin: auto;
+    width: 50%;
+    /* border: 3px solid green; */
+    /* padding: 10px; */
+}
+
+.quiz-table {
+    border-style: solid;
+    /* margin-bottom: 10px; */
+    /* margin-left: 10px; */
+    padding: 20px;
+    /* width: 50%; */
+    margin: auto;
+    width: 70%;
+    /* border: 3px solid green; */
+    /* padding: 10px; */
+}
+
+body > table{
+    width: 80%;
+}
+
+table{
+    border-collapse: collapse;
+}
+table.list{
+    width:100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+tr:nth-child(even),table.list thead>tr {
+    background-color: #dddddd;
+}
+
+input[type=text], input[type=number] {
+    width: 100%;
+    padding: 8px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    width: 30%;
+    background-color: black;
+    color: white;
+    padding: 10px 18px;
+    /* margin: 0px 0; */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+form div.form-action-buttons{
+    text-align: right;
+}
+
+a{
+    cursor: pointer;
+    text-decoration: underline;
+    color: #0000ee;
+    margin-right: 4px;
+}
+
+label.validation-error{
+    color:   red;
+    margin-left: 5px;
+}
+
+.hide{
+    display:none;
+}
+</style>
+
+
 <script>
     let questions = []
     let question = {
@@ -54,20 +142,32 @@
             </div>
             <button on:click={addNewQuestion}>Add Question</button>
         </div>
-        <div>
-            <h2>Questions</h2>
+     <table class="quiz-table">
+        <thead>
+            <tr>
+                <th>Question</th>
+                <th>Options</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
             {#each questions as question}
-                <div>
-                    <span>{question.label}</span>
-                    <div>
+                <tr>
+                    <td>{question.label}</td>
+                    <td>
                         {#each question.options as option}
                             <div>
                                 <span>{option.value}</span>
                                 <span>{option.isCorrect}</span>
                             </div>
                         {/each}
-                    </div>
-                </div>
+                    </td>
+                    <td>
+                        <a>Edit</a>
+                        <a>Delete</a>
+                    </td>
+                </tr>
             {/each}
-        </div>
+        </tbody>
+     </table>
     </div>
