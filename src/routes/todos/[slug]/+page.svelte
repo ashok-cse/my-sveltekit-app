@@ -1,19 +1,215 @@
-<svelte:head>
-    <title>Edit Quiz</title>
-    <meta name="description" content="Edit Quiz app" />
 
+<svelte:head>
+	<title>Quiz Panel</title>
+	<meta name="description" content=" Quiz Panel app" />
 </svelte:head>
 
+<style>
+    .quiz-form {
+    border-style: solid;
+    /* margin-bottom: 10px; */
+    /* margin-left: 10px; */
+    padding: 10px;
+    /* width: 50%; */
+    margin: auto;
+    width: 50%;
+    /* border: 3px solid green; */
+    /* padding: 10px; */
+}
+
+.quiz-table {
+    border-style: solid;
+    /* margin-bottom: 10px; */
+    /* margin-left: 10px; */
+    padding: 20px;
+    /* width: 50%; */
+    margin: auto;
+    width: 70%;
+    /* border: 3px solid green; */
+    /* padding: 10px; */
+}
+
+body > table{
+    width: 80%;
+}
+
+table{
+    border-collapse: collapse;
+}
+table.list{
+    width:100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+tr:nth-child(even),table.list thead>tr {
+    background-color: #dddddd;
+}
+
+input[type=text], input[type=number] {
+    width: 100%;
+    padding: 8px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    width: 30%;
+    background-color: black;
+    color: white;
+    padding: 10px 18px;
+    /* margin: 0px 0; */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+form div.form-action-buttons{
+    text-align: right;
+}
+
+a{
+    cursor: pointer;
+    text-decoration: underline;
+    color: #0000ee;
+    margin-right: 4px;
+}
+
+label.validation-error{
+    color:   red;
+    margin-left: 5px;
+}
+
+.hide{
+    display:none;
+}
+</style>
+
+
 <script>
-    import { page } from '$app/stores';
+
+  import { page } from '$app/stores';
+
+  /** @type {import('../$types').PageData} */
+	export let data;
+	$: todos = data.todos;
 
 
-    console.log($page.params)
+    console.log("todos", todos);
 
-</script>
+    let questions = []
+    let question = {
+        label: '',
+        options: [],
+        explaination: ''
+    }
+    let option = { value: '', isCorrect: false }
+    function addNewOption() {
+        // console.log('option', option)
+        question.options = [...question.options, { ...option }]
+        // console.log('question.options', question.options)
+        cleaOption()
+    }
+    function addNewQuestion() {
+        console.log('question', question)
+        questions = [...questions, { ...question }]
+        console.log('questions', questions)
+        cleaQuestion()
+    }
+    function cleaOption() {
+        option.value = ''
+        option.isCorrect = false
+    }
+    function cleaQuestion() {
+        question.label = ''
+        question.options = []
+        question.explaination = ''
+    }
+
+    function delQuestion(question) {
+        console.log('qu', question)
+        questions = questions.filter(q => q !== question)
+    }
+     
+    function editQuestion(question) {
+        console.log('item', question)
+    }
+    
+    function onSelectedquestion(question) {
+        console.log('question', question)
+    }
+
+    
+
+    </script>
+
+    <div>
+        <h1>Quiz Panel</h1>
+        
+        <div>
+            <h2>Question</h2>
+            <input type="text" bind:value={question.label} />
+            <br/>
+            <h2>Explaination</h2>
+            <input type="text" bind:value={question.explaination} />
+            <br/>
+            <h2>Options</h2>
+            <div>
+                <input type="checkbox" bind:checked={option.isCorrect} />
+                <input type="text" bind:value={option.value} />
+                <button on:click={addNewOption}>Add Option</button>
+            </div>
+            <br/>
+            <div>
+                {#each question.options as option}
+                    <div>
+                        <input type="checkbox" bind:checked={option.isCorrect} />
+                        <input type="text" bind:value={option.value} />
+                       
+                    </div>
+                {/each}
+            </div>
+            <br/>
+            <button on:click={addNewQuestion}>Add Question</button>
+        </div>
+        
 
 
-<div>
-    <h1>{$page.params.slug}</h1>
-    <h2>{$page.params.slug} : Page</h2>
-</div>
+
+
+     <table class="quiz-table">
+        <thead>
+            <tr>
+                <th>Question</th>
+                <th>Options</th>
+                <th>Explaination</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {#each questions as question}
+                <tr>
+                    <td contenteditable="true">{question.label}</td>
+                    <div>
+                    {#each question.options as option}
+                    <td>
+                   {option.value}
+                    </td>
+                        <td>{option.isCorrect}</td>
+                        {/each}</div>
+                    <td contenteditable="true">{question.explaination}</td>
+                    <td>
+                        <br/>
+                        <button on:click={delQuestion(question)}>Delete Question</button>
+                    </td>
+                </tr>
+            {/each}
+        </tbody>
+     </table>
+    </div>
