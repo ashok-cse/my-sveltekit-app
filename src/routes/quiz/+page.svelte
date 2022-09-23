@@ -119,13 +119,13 @@ label.validation-error{
         question.label = ''
         question.options = []
     }
-
-    function delQues(index) {
+     
+   function editQuestion = (index) => {
+        console.log('editQuestion', index)
+        question = questions[index]
         questions = questions.filter((q, i) => i !== index)
-        console.log('questions', questions);
-        question = { ...questions[questions.length - 1] }
     }
-
+    
     
     </script>
 
@@ -171,8 +171,8 @@ label.validation-error{
                         {/each}
                     </td>
                     <td>
-                        <a>Edit</a>
-                        <button on:click={delQues}>Delete Question</button>
+                        <button on:click={editQuestion}>Edit Question</button>
+                        <button on:click={editQuestion}>Delete Question</button>
                     </td>
                 </tr>
             {/each}
