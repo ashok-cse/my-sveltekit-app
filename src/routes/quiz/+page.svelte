@@ -120,11 +120,6 @@ label.validation-error{
         question.options = []
     }
      
-   function editQuestion = (index) => {
-        console.log('editQuestion', index)
-        question = questions[index]
-        questions = questions.filter((q, i) => i !== index)
-    }
     
     
     </script>
@@ -143,8 +138,8 @@ label.validation-error{
             <div>
                 {#each question.options as option}
                     <div>
-                        <span>{option.value}</span>
-                        <span>{option.isCorrect}</span>
+                        <input type="text" bind:value={option.value} />
+                        <input type="checkbox" bind:checked={option.isCorrect} />
                     </div>
                 {/each}
             </div>
