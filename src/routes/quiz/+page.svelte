@@ -96,7 +96,8 @@ label.validation-error{
     let questions = []
     let question = {
         label: '',
-        options: []
+        options: [],
+        explaination: ''
     }
     let option = { value: '', isCorrect: false }
     function addNewOption() {
@@ -118,6 +119,7 @@ label.validation-error{
     function cleaQuestion() {
         question.label = ''
         question.options = []
+        question.explaination = ''
     }
 
     function delQuestion(question) {
@@ -139,9 +141,14 @@ label.validation-error{
 
     <div>
         <h1>Quiz Panel</h1>
+        
         <div>
             <h2>Question</h2>
             <input type="text" bind:value={question.label} />
+            <br/>
+            <h2>Explaination</h2>
+            <input type="text" bind:value={question.explaination} />
+            <br/>
             <h2>Options</h2>
             <div>
                 <input type="checkbox" bind:checked={option.isCorrect} />
@@ -171,6 +178,7 @@ label.validation-error{
             <tr>
                 <th>Question</th>
                 <th>Options</th>
+                <th>Explaination</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -186,6 +194,7 @@ label.validation-error{
                             </div>
                         {/each}
                     </td>
+                    <td contenteditable="true">{question.explaination}</td>
                     <td>
                         <br/>
                         <button on:click={delQuestion(question)}>Delete Question</button>
