@@ -120,11 +120,11 @@ label.validation-error{
         question.options = []
     }
 
-    function  deleteQuestion = (index) => {
-        questions = questions.splice(index, 1)
-
-        questions = [...questions, { ...question }]
+    function deleteQuestion (index) {
+        questions = questions.filter((q, i) => i !== index)
     }
+  
+
     
     </script>
 
