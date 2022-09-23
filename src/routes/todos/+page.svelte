@@ -7,6 +7,8 @@
 	/** @type {import('./$types').PageData} */
 	export let data;
 	$: todos = data.todos;
+
+	console.log(data.todos);
 </script>
 
 <svelte:head>
@@ -39,6 +41,7 @@
 			class:done={todo.done}
 			transition:scale|local={{ start: 0.7 }}
 			animate:flip={{ duration: 200 }}
+
 		>
 			<form
 				action="/todos?/toggle"
@@ -51,6 +54,8 @@
 				<input type="hidden" name="done" value={todo.done ? '' : 'true'} />
 				<button class="toggle" aria-label="Mark todo as {todo.done ? 'not done' : 'done'}" />
 			</form>
+
+		
 
 			<form class="text" action="/todos?/edit" method="post" use:enhance>
 				<input type="hidden" name="uid" value={todo.uid} />
