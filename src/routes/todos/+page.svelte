@@ -10,12 +10,12 @@
 </script>
 
 <svelte:head>
-	<title>Todos</title>
-	<meta name="description" content="A todo list app" />
+	<title>Create Quiz </title>
+	<meta name="description" content="A quiz list app" />
 </svelte:head>
 
 <div class="todos">
-	<h1>Todos</h1>
+	<h1>Create Quiz</h1>
 
 	<form
 		class="new"
@@ -30,7 +30,7 @@
 			};
 		}}
 	>
-		<input name="text" aria-label="Add todo" placeholder="+ tap to add a todo" />
+		<input name="text" aria-label="Add Question" placeholder="+ tap to add a question" />
 	</form>
 
 	{#each todos as todo (todo.uid)}
