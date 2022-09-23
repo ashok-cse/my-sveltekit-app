@@ -1,6 +1,6 @@
 <svelte:head>
     <title>Panel</title>
-    <meta name="description" content="Quiz">
+    <meta name="description" content="Panel">
 </svelte:head>
 
 <script>
@@ -63,3 +63,4 @@
         </tr>
         {/each}
     </tbody>
+</table>

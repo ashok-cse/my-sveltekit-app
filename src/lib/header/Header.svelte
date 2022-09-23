@@ -28,7 +28,7 @@
 				<a href="/quiz">Quiz</a>
 			</li>
 			<li class:active={$page.url.pathname === '/panel'}>
-				<a href="/panel">Quiz</a>
+				<a href="/panel">Panel</a>
 			</li>
 		</ul>
 		<svg viewBox="0 0 2 3" aria-hidden="true">
