@@ -186,14 +186,13 @@ label.validation-error{
             {#each questions as question}
                 <tr>
                     <td contenteditable="true">{question.label}</td>
+                    <div>
+                    {#each question.options as option}
                     <td>
-                        {#each question.options as option}
-                            <div>
-                                <span contenteditable="true">{option.value}</span>
-                                <span contenteditable="true">{option.isCorrect}</span>
-                            </div>
-                        {/each}
+                   {option.value}
                     </td>
+                        <td>{option.isCorrect}</td>
+                        {/each}</div>
                     <td contenteditable="true">{question.explaination}</td>
                     <td>
                         <br/>
