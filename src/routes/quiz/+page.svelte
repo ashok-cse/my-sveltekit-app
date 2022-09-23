@@ -18,7 +18,7 @@
 	};
     
 	function addPerson(attendee) {
-        if(attendee.question == "" || attendee.options1 == "" || attendee.options2 == "" || attendee.options3 == "" || attendee.options4 == "" || attendee.answer == "" || attendee.explanation == "" || checked == false){
+        if(attendee.question == "" || attendee.options1 == "" || attendee.options2 == "" || attendee.options3 == "" || attendee.options4 == "" || attendee.answer == "" || attendee.explanation == "" || checked == true){
             alert("Please fill all the fields");
         }else {
             
