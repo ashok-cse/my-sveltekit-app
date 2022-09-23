@@ -119,6 +119,12 @@ label.validation-error{
         question.label = ''
         question.options = []
     }
+
+    function delQuestion(item) {
+        console.log('item', item)
+        questions = questions.filter((q) => q.label !== item.label)
+        console.log('questions', questions)
+    }
      
     
     
@@ -168,7 +174,7 @@ label.validation-error{
                     </td>
                     <td>
                         <button on:click={editQuestion}>Edit Question</button>
-                        <button on:click={editQuestion}>Delete Question</button>
+                        <button on:click={delQuestion}>Delete Question</button>
                     </td>
                 </tr>
             {/each}
