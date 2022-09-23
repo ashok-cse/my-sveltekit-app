@@ -131,15 +131,16 @@ label.validation-error{
             <input type="text" bind:value={question.label} />
             <h2>Options</h2>
             <div>
-                <input type="text" bind:value={option.value} />
                 <input type="checkbox" bind:checked={option.isCorrect} />
+                <input type="text" bind:value={option.value} />
                 <button on:click={addNewOption}>Add Option</button>
             </div>
             <div>
                 {#each question.options as option}
                     <div>
-                        <input type="text" bind:value={option.value} />
                         <input type="checkbox" bind:checked={option.isCorrect} />
+                        <input type="text" bind:value={option.value} />
+                       
                     </div>
                 {/each}
             </div>
