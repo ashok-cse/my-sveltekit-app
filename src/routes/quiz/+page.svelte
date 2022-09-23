@@ -119,6 +119,13 @@ label.validation-error{
         question.label = ''
         question.options = []
     }
+
+    function  deleteQuestion = (index) => {
+        questions = questions.splice(index, 1)
+
+        questions = [...questions, { ...question }]
+    }
+    
     </script>
 
     <div>
@@ -164,7 +171,7 @@ label.validation-error{
                     </td>
                     <td>
                         <a>Edit</a>
-                        <a>Delete</a>
+                        <a on:click="{deleteQuestion}">Delete</a>
                     </td>
                 </tr>
             {/each}
