@@ -3,73 +3,71 @@
 	<title>Quiz Panel</title>
 	<meta name="description" content=" Quiz Panel app" />
 </svelte:head>
+
 <script>
-	let num = 0;
-    let no = false;
-    let yes = true;
-	let totalAttendees = [];
-	let defaultAttendee = {
-		question : "",
-        options1 : "",
-        options2 : "",
-        options3 : "",
-        options4 : "",
-        answer : "",
-        explanation : "",
-	};
-    
-	function addPerson(attendee) {
-       
-        totalAttendees = [...totalAttendees, { ...attendee }];
-}
-	$: attendees = Array(num).fill(defaultAttendee).map((v, i) => ({...v, id: i}));
-</script>
+    let questions = []
+    let question = {
+        label: '',
+        options: []
+    }
+    let option = { value: '', isCorrect: false }
+    function addNewOption() {
+        // console.log('option', option)
+        question.options = [...question.options, { ...option }]
+        // console.log('question.options', question.options)
+        cleaOption()
+    }
+    function addNewQuestion() {
+        console.log('question', question)
+        questions = [...questions, { ...question }]
+        console.log('questions', questions)
+        cleaQuestion()
+    }
+    function cleaOption() {
+        option.value = ''
+        option.isCorrect = false
+    }
+    function cleaQuestion() {
+        question.label = ''
+        question.options = []
+    }
+    </script>
 
-<input bind:value={num} type="number"/>
-
-{#each attendees as attendee, i}
-<div>
-	<input type="text" bind:value={attendee.question} class="bg-transparent" placeholder="Enter Your Question"/>
-    <input type="checkbox" checked={no} >
-    <input type="text" bind:value={attendee.options1} class="bg-transparent" placeholder="Option 1" />
-    <input type="checkbox" checked={no} >
-    <input type="text" bind:value={attendee.options2} class="bg-transparent" placeholder="Option 2" />
-    <input type="checkbox" checked={no} >
-    <input type="text" bind:value={attendee.options3} class="bg-transparent" placeholder="Option 3" />
-    <input type="checkbox" checked={no} >
-    <input type="text" bind:value={attendee.options4} class="bg-transparent" placeholder="Option 4" />
-    <input type="checkbox" checked={no} >
-    <input type="text" bind:value={attendee.answer} class="bg-transparent"  />
-    <input type="text" bind:value={attendee.explanation} class="bg-transparent" />
-	<button type="button" on:click={() => addPerson(attendee)}>add</button>
-
-</div>
-{/each}
-
-
-<table>
-    <thead>
-        <tr>
-            <th>Question</th>
-            <th>Option1</th>
-            <th>Option2</th>
-            <th>Option3</th>
-            <th>Option4</th>
-            <th>Answer</th>
-            <th>Explanation</th>
-        </tr>
-    </thead>
-    <tbody>
-        {#each totalAttendees as attendee}
-        <tr>
-            <td>{attendee.question}</td>
-            <td>{attendee.options1}</td>
-            <td>{attendee.options2}</td>
-            <td>{attendee.options3}</td>
-            <td>{attendee.options4}</td>
-            <td>{attendee.answer}</td>
-            <td>{attendee.explanation}</td>
-        </tr>
-        {/each}
-    </tbody>
-</table>
+    <div>
+        <h1>Quiz Panel</h1>
+        <div>
+            <h2>Question</h2>
+            <input type="text" bind:value={question.label} />
+            <h2>Options</h2>
+            <div>
+                <input type="text" bind:value={option.value} />
+                <input type="checkbox" bind:checked={option.isCorrect} />
+                <button on:click={addNewOption}>Add Option</button>
+            </div>
+            <div>
+                {#each question.options as option}
+                    <div>
+                        <span>{option.value}</span>
+                        <span>{option.isCorrect}</span>
+                    </div>
+                {/each}
+            </div>
+            <button on:click={addNewQuestion}>Add Question</button>
+        </div>
+        <div>
+            <h2>Questions</h2>
+            {#each questions as question}
+                <div>
+                    <span>{question.label}</span>
+                    <div>
+                        {#each question.options as option}
+                            <div>
+                                <span>{option.value}</span>
+                                <span>{option.isCorrect}</span>
+                            </div>
+                        {/each}
+                    </div>
+                </div>
+            {/each}
+        </div>
+    </div>
