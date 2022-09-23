@@ -56,7 +56,9 @@
 			</form>
 
 		
-
+            <a href="/todos/{todo.uid}">
+				<h2>{todo.text}</h2>
+			</a>
 			<form class="text" action="/todos?/edit" method="post" use:enhance>
 				<input type="hidden" name="uid" value={todo.uid} />
 				<input aria-label="Edit todo" type="text" name="text" value={todo.text} />
