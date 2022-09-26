@@ -1,4 +1,8 @@
 <script>
+ 
+ import { onMount } from "svelte";
+
+  let quizdata = [];
   let question = "";
   let answer = [];
   let options = [];
@@ -37,13 +41,16 @@
     window.location.href = "/panel";
   }
 
+    async function loadQuiz() {
+    const res = await fetch(`https://quiz-panel-server.herokuapp.com/todos`);
+    const data = await res.json();
+    const quizdata = data.data.quiz;
+    return quizdata;
+}
 
-  async function loadQuiz() {
-    const res = await fetch(`https://quiz-panel-server.herokuapp.com/todos/`);
-    const quizdata = await res.json();
-     return quizdata;
-    console.log(data);
-  }
+  onMount(async () => {
+    quizdata = await loadQuiz();
+  });
 
 </script>
 
@@ -104,7 +111,7 @@
       <button
         class="bg-blue-500  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
         on:click={addOption}
-        type="button"
+        type="submit"
       >
         Add Option
       </button>
@@ -141,37 +148,37 @@
      
     </div>
 
+
+
   </div>
 
 
-  <!-- // List of Questions -->
-
-  <div class="w-full">
+<!-- List of Questions -->
 
 
+<div class="w-full">
 
-    <h1>Total No. Question</h1>
+
+
+    <h1>Total No. Questions</h1>
 
     <div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
     
         <div class="w-full">
     
-            {#each quizdata as q }
+            {#each quizdata as quiz}
           
         <div class="w-full bg-slate-700 rounded pt-4 pr-4 pl-4 pb-4 mb-4">
-
-            <p class=" text-white text-xl">{q.question}</p>
+          
+            <p class=" text-white text-xl">{quiz.question}</p>
+        
         </div>
             {/each}
         </div>
-
-        <div class="flex items-center justify-between">
-           <button  class="bg-blue-500  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" on:click={loadQuiz}>
-         Load Questions 
-        </button>
-           
-          </div>
      
     </div>
 
+
+
   </div>
+
