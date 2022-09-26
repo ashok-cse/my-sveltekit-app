@@ -32,9 +32,9 @@
       }),
     }).then((res) => {
       res.json();
-      console.log(res);
     });
 
+    window.location.href = "/panel";
   }
 </script>
 
