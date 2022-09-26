@@ -8,7 +8,6 @@
 	export let data;
 	$: todos = data.todos;
 
-	console.log(data.todos);
 </script>
 
 <svelte:head>
@@ -57,13 +56,14 @@
 
 		
             <a href="/todos/{todo.uid}">
-	
+		
+			
 			<form class="text" action="/todos?/edit" method="post" use:enhance>
 				<input type="hidden" name="uid" value={todo.uid} />
 				<input aria-label="Edit todo" type="text" name="text" value={todo.text} />
 				<button class="save" aria-label="Save todo" />
 			</form>
-		</a>
+			</a>
 
 			<form
 				action="/todos?/delete"

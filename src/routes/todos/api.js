@@ -7,7 +7,7 @@
 	guarantees are made. Don't use it to organise your life.)
 */
 
-const base = 'https://api.svelte.dev';
+const base = 'http://localhost:9000';
 
 /**
  * @param {string} method
