@@ -19,7 +19,7 @@
 
   async function createQuiz() {
 
-    const res = await fetch(`http://localhost:9000/todos/create`, {
+    const res = await fetch(`https://quiz-panel-server.herokuapp.com/todos/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
