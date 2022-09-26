@@ -95,7 +95,6 @@
       </tr>
     </thead>
     <tbody>
-      {#each questions as question}
         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
           <td class="py-4 px-6" contenteditable="true">{question.label}</td>
           <div>

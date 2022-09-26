@@ -161,24 +161,54 @@
 
 
     <h1>Total No. Questions</h1>
-
-    <div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
-    
-        <div class="w-full">
-    
-            {#each quizdata as quiz}
-          
-        <div class="w-full bg-slate-700 rounded pt-4 pr-4 pl-4 pb-4 mb-4">
-          
-            <p class=" text-white text-xl">{quiz.question}</p>
-        
-        </div>
-            {/each}
-        </div>
      
-    </div>
+<div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="py-3 px-6">
+                    Question
+                </th>
+
+                <th scope="col" class="py-3 px-6">
+                    Options
+                </th>
+
+                <th scope="col" class="py-3 px-6">
+                    Answer
+                </th>
+                <th scope="col" class="py-3 px-6">
+                    Explain
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {#each quizdata as quiz}
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+        
+                <td class="py-4 px-6">
+                    {quiz.question}
+                </td>
+                <td class="py-4 px-6">
+                    {#each quiz.options as option}
+                    <ul class=" list-disc">
+                        <li>{option.value}</li>
+                    </ul>
+                    {/each}
+                </td>
+                <td class="py-4 px-6">
+                    {quiz.answer[0].value}
+                </td>
+                <td class="py-4 px-6">
+                    {quiz.explain}
+                </td>
+            
+            </tr>
+            {/each}
+        </tbody>
+    </table>
+</div>
+</div>
 
 
-
-  </div>
 
