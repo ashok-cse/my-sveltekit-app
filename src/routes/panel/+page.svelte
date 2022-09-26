@@ -183,11 +183,9 @@
             </tr>
         </thead>
 
+        {#each quizdata as quiz}
         <tbody>
-           
-
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                {#each quizdata as quiz}
                 <td class="py-4 px-6">
                     {quiz.question}
                 </td>
@@ -204,9 +202,9 @@
                 <td class="py-4 px-6">
                     {quiz.explain}
                 </td>
-                {/each}
             </tr>
         </tbody>
+        {/each}
     </table>
 </div>
 </div>
