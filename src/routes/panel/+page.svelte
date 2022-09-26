@@ -107,7 +107,7 @@
 <div class="w-full">
 
 
-    <form on:submit={createQuiz}>
+
     <h1>Total No. Options</h1>
 
     <div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
@@ -124,10 +124,11 @@
         </div>
 
         <div class="flex items-center justify-between">
-           <input  class="bg-blue-500  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+           <button  class="bg-blue-500  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" on:click={createQuiz}>
+            </button>
            
           </div>
      
     </div>
-</form>
+
   </div>
