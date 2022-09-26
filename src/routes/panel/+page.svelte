@@ -32,6 +32,7 @@
       }),
     }).then((res) => {
       res.json();
+      console.log(res);
     });
 
   }
