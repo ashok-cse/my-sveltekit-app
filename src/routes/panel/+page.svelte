@@ -46,10 +46,12 @@
     const data = await res.json();
     const quizdata = data.data.quiz;
     return quizdata;
+   
 }
 
   onMount(async () => {
     quizdata = await loadQuiz();
+    console.log(quizdata);
   });
 
 </script>
