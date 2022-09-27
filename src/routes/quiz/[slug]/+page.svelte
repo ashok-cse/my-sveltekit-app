@@ -1,8 +1,16 @@
 <script>
     import { page } from '$app/stores';
     import { onMount } from 'svelte';
-
-    let id = "";
+   let isDisabled = false;
+   let id = "";
+   let tick = 10;
+   let timer = setInterval(() => {
+        tick = tick - 1;
+        if(tick == 0){
+          clearInterval(timer);
+          isDisabled = true;
+        }
+    }, 1000);
 
     let quizdataid = [];
     let options = [];
@@ -28,7 +36,11 @@
             alert('Wrong Answer');
         }
     }
-   
+
+    function disableButton(){
+       clearInterval(timer);
+    }
+
     onMount(async () => {
         quizdataid = await getId();
 
@@ -53,7 +65,8 @@
 
     <div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
     
-        <div class="w-full">          
+        <div class="w-full"> 
+            <h1>{tick}:00 Time Left </h1>         
             <div class="w-full bg-slate-700 rounded pt-4 pr-4 pl-4 pb-4 mb-4">      
             <p class=" text-white text-xl">{quizdataid.question}</p>
         </div>
@@ -63,7 +76,7 @@
                 <p class=" text-white text-xl">{option.value}</p>
           </div>
          {/each}
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" on:click={checkAnswer}>
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"  disabled={isDisabled}  on:click={checkAnswer}>
                 Submit Answer
             </button>
 
