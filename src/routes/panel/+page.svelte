@@ -5,8 +5,10 @@
   let quizdata = [];
   let question = "";
   let answer = [];
-  let options = [];
+  let options = []
+  ;
   let exlpain = "";
+
   let option = { value: "", isCorrect: false };
 
   let correctOption = { value: ""};
@@ -187,7 +189,9 @@
                     {/each}
                 </td>
                 <td class="py-4 px-6">
-                    {quiz.answer[0].value}
+                    {#each quiz.answer as answe}
+                    <li>{answe.value}</li>
+                    {/each}
                 </td>
                 <td class="py-4 px-6">
                     {quiz.explain}
