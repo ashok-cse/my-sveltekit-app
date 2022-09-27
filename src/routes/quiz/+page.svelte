@@ -116,7 +116,6 @@
             >
           </td>
         </tr>
-      {/each}
     </tbody>
   </table>
 </div>
